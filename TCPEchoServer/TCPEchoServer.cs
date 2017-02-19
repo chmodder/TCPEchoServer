@@ -34,28 +34,8 @@ namespace TCPEchoServer
                 //Socket connectionSocket = serverSocket.AcceptSocket();
                 Console.WriteLine("Server activated");
 
-                Stream ns = connectionSocket.GetStream();
-                // Stream ns = new NetworkStream(connectionSocket);
-
-                StreamReader sr = new StreamReader(ns);
-                StreamWriter sw = new StreamWriter(ns);
-                sw.AutoFlush = true; // enable automatic flushing
-
-                sw.WriteLine("Connection established");
-
-                string message = sr.ReadLine();
-                string answer = "";
-
-
-                while (message != null && message != "")
-                {
-                    Console.WriteLine("Client: " + message);
-                    answer = message.ToUpper();
-                    sw.WriteLine(answer);
-                    message = sr.ReadLine();
-                }
-
-                ns.Close();
+                EchoService theEchoService = new EchoService(connectionSocket);
+                theEchoService.DoIt();
                 connectionSocket.Close();
 
             }
