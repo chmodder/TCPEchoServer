@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TCPEchoServer
@@ -24,6 +25,7 @@ namespace TCPEchoServer
 
         public static void Main(string[] args)
         {
+
             TcpListener serverSocket = new TcpListener(6789);
             serverSocket.Start();
             Console.WriteLine($"Server Started");
@@ -35,8 +37,9 @@ namespace TCPEchoServer
                 Console.WriteLine("Server activated");
 
                 EchoService theEchoService = new EchoService(connectionSocket);
-                theEchoService.DoIt();
-                connectionSocket.Close();
+                //Thread s1 = new Thread(theEchoService.DoIt);
+                //s1.Start();
+                Task.Factory.StartNew(() => theEchoService.DoIt());
 
             }
 

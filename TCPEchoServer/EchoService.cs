@@ -48,6 +48,7 @@ namespace TCPEchoServer
                     message = sr.ReadLine();
                 }
 
+                _connectionSocket.Close();
                 ns.Close();
             }
             catch (IOException e)
