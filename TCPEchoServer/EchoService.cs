@@ -44,6 +44,13 @@ namespace TCPEchoServer
                 {
                     Console.WriteLine("Client: " + message);
                     answer = message.ToUpper();
+                    if (answer == "STOP")
+                    {
+                        answer = "SERVER STOPPED";
+                        sw.WriteLine(answer);
+                        message = sr.ReadLine();
+                        break;
+                    }
                     sw.WriteLine(answer);
                     message = sr.ReadLine();
                 }
